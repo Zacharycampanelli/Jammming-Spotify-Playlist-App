@@ -1,8 +1,10 @@
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div>
+class App extends Component {
+  render() {
+    return (
+      <div>
       <h1>
         Ja<span className="highlight">mmm</span>ing
       </h1>
@@ -14,7 +16,8 @@ function App() {
         </div>
       </div>
     </div>
-  );
+    );
+  }
 }
 
 export default App;
