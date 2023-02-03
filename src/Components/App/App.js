@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import { SearchBar } from '../SearchBar/SearchBar';
-import { SearchResults } from '../SearchResults/SearchResults';
-import { Playlist } from '../Playlist/Playlist';
+import SearchBar from '../SearchBar/SearchBar';
+import SearchResults from '../SearchResults/SearchResults';
+import Playlist from '../Playlist/Playlist';
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -13,15 +13,37 @@ class App extends Component {
       searchResults: [
         { name: 'nameOne', artist: 'artistOne', album: 'albumOne', id: 1 },
         { name: 'nameTwo', artist: 'artistTwo', album: 'albumTwo', id: 2 },
-        { name: 'nameThree', artist: 'artistThree', album: 'albumThree', id: 3 }
+        { name: 'nameThree', artist: 'artistThree', album: 'albumThree', id: 3 },
       ],
-      playlistName: "Playlistname",
+      playlistName: 'Playlistname',
       playlistTracks: [
-        { name: 'playlistNameOne', artist: 'playlistArtistOne', album: 'playlistAlbumOne', id: 1 },
-        { name: 'playlistNameTwo', artist: 'playlistArtistTwo', album: 'playlistAlbumTwo', id: 2 },
-        { name: 'playlistNameThree', artist: 'playlistArtistThree', album: 'playlistAlbumThree', id: 3 }
-    ]
+        { name: 'playlistNameOne', artist: 'playlistArtistOne', album: 'playlistAlbumOne', id: 4 },
+        { name: 'playlistNameTwo', artist: 'playlistArtistTwo', album: 'playlistAlbumTwo', id: 5 },
+        { name: 'playlistNameThree', artist: 'playlistArtistThree', album: 'playlistAlbumThree', id: 6 },
+      ],
     };
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+  
+  }
+
+  addTrack(track) {
+    let tracks = this.state.playlistTracks;
+    if (tracks.find(savedTrack => savedTrack.id === track.id)) {
+      return;
+    }
+    const newTracks = this.state.playlistTracks;
+
+    newTracks.push(track);
+    this.setState({ playlistTracks: newTracks });
+  }
+
+  removeTrack(track) {
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+
+    this.setState({playlistTracks: tracks})
+
   }
 
   render() {
@@ -33,8 +55,9 @@ class App extends Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
-            <Playlist name={this.state.playlistName} tracks={this.state.playlistTracks} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} 
+            onRemove={this.removeTrack}/>
           </div>
         </div>
       </div>
