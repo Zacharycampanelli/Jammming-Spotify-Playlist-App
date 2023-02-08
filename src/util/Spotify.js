@@ -1,9 +1,11 @@
 // const clientId = process.env.CLIENT_ID;
-const clientId = '5942ed1176b54d44975f050f1392150e';
+const clientId = '';
 const redirectUri = 'http://localhost:3000/';
+// const redirectUri = 'http://campanelli_jammming.surge.sh';
+
 
 let accessToken;
-
+console.log(clientId);
 const Spotify = {
   getAccessToken() {
     if (accessToken) {
